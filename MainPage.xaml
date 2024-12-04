@@ -1,25 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MoneyCounter.ViewModels"
              x:Class="MoneyCounter.MainPage">
-    <VerticalStackLayout Padding="30" Spacing="20">
-        <!-- Input Box for Numbers -->
-        <Entry x:Name="NumberEntry"
-               Placeholder="Enter a number"
-               Keyboard="Numeric" />
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
 
-        <!-- Button to Add the Number -->
-        <Button Text="Add"
-                Clicked="OnAddButtonClicked" />
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="30" Spacing="20">
+            <!-- Input Box for Numbers -->
+            <Entry Text="{Binding NumberInput}"
+                   Placeholder="Enter a number"
+                   Keyboard="Numeric"
+                   IsEnabled="{Binding IsInputEnabled}" />
 
-        <!-- Label to Display the Sum -->
-        <Label x:Name="SumLabel"
-               Text="Sum: 0"
-               FontSize="24"
-               HorizontalOptions="Center" />
+            <!-- Button to Add the Number -->
+            <Button Text="Add"
+                    Command="{Binding AddCommand}" />
 
-        <!-- Reset Button -->
-        <Button Text="Reset"
-                Clicked="OnResetButtonClicked" />
-    </VerticalStackLayout>
+            <!-- Label to Display the Sum -->
+            <Label Text="{Binding TotalSum, StringFormat='Sum: {0}'}"
+                   FontSize="24"
+                   HorizontalOptions="Center" />
+
+            <!-- Message Label -->
+            <Label Text="{Binding Message}"
+                   FontSize="14"
+                   TextColor="Red"
+                   HorizontalOptions="Center" />
+
+            <!-- Reset Button -->
+            <Button Text="Reset"
+                    Command="{Binding ResetCommand}" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
 </ContentPage>
